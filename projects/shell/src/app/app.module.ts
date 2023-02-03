@@ -19,7 +19,7 @@ const oktaAuth = new OktaAuth({
 @NgModule({
   declarations: [AppComponent, ProductsComponent, ProductComponent],
   imports: [BrowserModule, AppRoutingModule, OktaAuthModule],
-  providers: [],
+  providers: [{ provide: OKTA_CONFIG, useValue: { oktaAuth } }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
