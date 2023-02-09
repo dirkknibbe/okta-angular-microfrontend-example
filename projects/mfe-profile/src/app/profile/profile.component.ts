@@ -1,16 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { OktaAuthStateService } from "@okta/okta-angular";
+import { filter, map } from "rxjs";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styles: [
-  ]
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
+  styles: [],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
+  public profile$ = this.oktaStateService.authState$.pipe(
+    filter((state) => !!state && !!state.isAuthenticated),
+    map((state) => state.idToken?.claims)
+  );
 
-  constructor() { }
+  public date$ = this.oktaStateService.authState$.pipe(
+    filter((state) => !!state && !!state.isAuthenticated),
+    map((state) => (state.idToken?.claims.auth_time as number) * 1000),
+    map((epochTime) => new Date(epochTime))
+  );
 
-  ngOnInit(): void {
-  }
+  constructor(private oktaStateService: OktaAuthStateService) {}
 
+  ngOnInit(): void {}
 }
