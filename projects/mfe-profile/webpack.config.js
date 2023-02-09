@@ -63,6 +63,16 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
+        "@okta/okta-angular": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@okta/okta-auth-js": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
 
         ...sharedMappings.getDescriptors(),
       }),
